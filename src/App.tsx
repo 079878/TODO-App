@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { AnalyticsView } from './components/AnalyticsView';
 import { BlockModal } from './components/BlockModal';
 import { ChatView } from './components/ChatView';
 import { FocusView } from './components/FocusView';
@@ -483,6 +484,16 @@ export default function App() {
               reflection={state.reflections[selectedDate]}
               onSaveReflection={handleSaveReflection}
               onRolloverTasks={handleRolloverTasks}
+            />
+          )}
+
+          {activeView === 'analytics' && (
+            <AnalyticsView
+              selectedDate={selectedDate}
+              tasks={filteredTasks}
+              focusSessions={state.focusSessions}
+              theme={theme}
+              isGlobalSearchActive={isGlobalSearchActive}
             />
           )}
 

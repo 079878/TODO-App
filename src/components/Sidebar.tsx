@@ -8,6 +8,7 @@ import {
   Moon,
   Plus,
   Sun,
+  TrendingUp,
 } from 'lucide-react';
 import { PlannerView } from '../types/planner';
 import { formatDisplayDate, getTodayKey, getWeekDates } from '../utils/time';
@@ -33,6 +34,7 @@ const NAV_ITEMS: {
   { id: 'focus', label: 'Focus', icon: Clock },
   { id: 'habits', label: 'Habits', icon: CheckSquare },
   { id: 'review', label: 'Review', icon: Moon },
+  { id: 'analytics', label: 'Analytics', icon: TrendingUp },
   { id: 'gmail', label: 'Gmail', icon: Mail },
   { id: 'assistant', label: 'Assistant', icon: MessageSquare },
 ];
@@ -241,7 +243,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               key={item.id}
               type="button"
               onClick={() => onSelectView(item.id)}
-              className={`flex h-11 min-w-[52px] flex-1 flex-col items-center justify-center gap-0.5 rounded-lg px-0.5 text-[10px] font-medium transition-colors whitespace-nowrap ${
+              className={`flex h-11 min-w-[56px] flex-1 shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg px-0.5 text-[10px] font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'text-[#4648d4] dark:text-[#A5B4FC]'
                   : 'text-[#71717A] dark:text-[#A1A1AA]'

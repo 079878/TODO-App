@@ -6,6 +6,7 @@ export type PlannerView =
   | 'focus'
   | 'habits'
   | 'review'
+  | 'analytics'
   | 'assistant'
   | 'gmail';
 

@@ -29,6 +29,7 @@ const VIEW_TITLES: Record<PlannerView, string> = {
   focus: 'Deep Focus',
   habits: 'Daily Rituals',
   review: 'Evening Review',
+  analytics: 'Analytics',
   gmail: 'Gmail',
   assistant: 'Assistant',
 };

@@ -1,7 +1,90 @@
-import { DayflowState } from '../types/planner';
+import { DayflowState, PlannerTask, TaskCategory } from '../types/planner';
 import { addDays, getTodayKey } from '../utils/time';
 
 const STORAGE_KEY = 'dayflow_planner_state_v1';
+
+const HISTORICAL_TEMPLATES: {
+  title: string;
+  category: TaskCategory;
+  durationMinutes: number;
+  notes?: string;
+}[] = [
+  {
+    title: 'Core API latency profiling & query tuning',
+    category: 'Deep Work',
+    durationMinutes: 60,
+    notes: 'Inspect slow Postgres queries and connection pool saturation.',
+  },
+  {
+    title: 'Design system token audit & spacing pass',
+    category: 'Deep Work',
+    durationMinutes: 45,
+    notes: 'Verify contrast ratios across light and dark surfaces.',
+  },
+  {
+    title: 'Product & engineering weekly sync',
+    category: 'Meetings',
+    durationMinutes: 30,
+  },
+  {
+    title: 'Clear customer support escalations',
+    category: 'Admin',
+    durationMinutes: 30,
+    notes: 'Triage billing and webhook delivery tickets.',
+  },
+  {
+    title: 'Evening strength training & mobility',
+    category: 'Personal',
+    durationMinutes: 45,
+  },
+  {
+    title: 'Draft RFC for event-driven notifications',
+    category: 'Deep Work',
+    durationMinutes: 90,
+    notes: 'Outline retry backoff and dead-letter queue strategy.',
+  },
+  {
+    title: '1:1 career check-in & sprint planning',
+    category: 'Meetings',
+    durationMinutes: 30,
+  },
+  {
+    title: 'Monthly expense categorization & receipts',
+    category: 'Admin',
+    durationMinutes: 25,
+  },
+];
+
+function generateHistoricalTasks(today: string): PlannerTask[] {
+  const historical: PlannerTask[] = [];
+  for (let offset = -29; offset <= -2; offset++) {
+    const dateKey = addDays(today, offset);
+    const dayIndex = offset + 29; // 0 .. 27
+    const isWeekend = dayIndex % 7 === 5 || dayIndex % 7 === 6;
+    const count = isWeekend ? 2 : 3 + (dayIndex % 2);
+    // Gradual upward productivity trend across the month
+    const targetCompletedRatio = Math.min(0.95, 0.48 + (dayIndex / 28) * 0.42);
+
+    for (let i = 0; i < count; i++) {
+      const tpl =
+        HISTORICAL_TEMPLATES[(dayIndex * 3 + i) % HISTORICAL_TEMPLATES.length];
+      const completed = (i + 0.35) / count <= targetCompletedRatio;
+      historical.push({
+        id: `t-hist-${dayIndex}-${i}`,
+        title: tpl.title,
+        category: tpl.category,
+        durationMinutes: tpl.durationMinutes,
+        date: dateKey,
+        startTime: i === 0 ? '09:00' : i === 1 ? '11:30' : undefined,
+        completed,
+        completedAt: completed ? (i === 0 ? '10:00' : '16:15') : undefined,
+        priority: i === 0 && !isWeekend,
+        notes: tpl.notes,
+      });
+    }
+  }
+  return historical;
+}
 
 export function createSeedState(): DayflowState {
   const today = getTodayKey();
@@ -125,6 +208,7 @@ export function createSeedState(): DayflowState {
         completedAt: '15:30',
         priority: false,
       },
+      ...generateHistoricalTasks(today),
     ],
     habits: [
       {
