@@ -7,6 +7,7 @@ interface FocusViewProps {
   selectedDate: string;
   tasks: PlannerTask[];
   activeTaskId: string | null;
+  pinnedActiveTask?: PlannerTask | null;
   onSelectTaskId: (taskId: string | null) => void;
   focusSessions: FocusSession[];
   onLogFocusSession: (payload: {
@@ -23,6 +24,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
   selectedDate,
   tasks,
   activeTaskId,
+  pinnedActiveTask,
   onSelectTaskId,
   focusSessions,
   onLogFocusSession,
@@ -30,7 +32,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
   const dayTasks = tasks.filter(
     (t) => t.date === selectedDate && !t.completed
   );
-  const activeTask = tasks.find((t) => t.id === activeTaskId) || null;
+  const activeTask =
+    tasks.find((t) => t.id === activeTaskId) || pinnedActiveTask || null;
 
   const [customIntention, setCustomIntention] = useState(
     'Uninterrupted deep work sprint'

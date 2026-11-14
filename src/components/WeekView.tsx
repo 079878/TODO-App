@@ -17,6 +17,7 @@ interface WeekViewProps {
   onOpenDay: (dateKey: string) => void;
   tasks: PlannerTask[];
   onToggleTask: (taskId: string) => void;
+  isGlobalSearchActive?: boolean;
 }
 
 export const WeekView: React.FC<WeekViewProps> = ({
@@ -25,6 +26,7 @@ export const WeekView: React.FC<WeekViewProps> = ({
   onOpenDay,
   tasks,
   onToggleTask,
+  isGlobalSearchActive = false,
 }) => {
   const weekDates = getWeekDates(selectedDate);
   const todayKey = getTodayKey();
@@ -137,7 +139,7 @@ export const WeekView: React.FC<WeekViewProps> = ({
               <div className="mt-3 flex-1 divide-y divide-[#F4F4F5] dark:divide-[#1E1E22]">
                 {dayItems.length === 0 ? (
                   <p className="py-6 text-center text-xs text-[#A1A1AA] dark:text-[#52525B]">
-                    Open day
+                    {isGlobalSearchActive ? 'No matches' : 'Open day'}
                   </p>
                 ) : (
                   dayItems.map((task) => (
@@ -166,6 +168,11 @@ export const WeekView: React.FC<WeekViewProps> = ({
                           {task.startTime ? `${task.startTime} · ` : ''}
                           {formatDuration(task.durationMinutes)}
                         </p>
+                        {isGlobalSearchActive && task.notes && (
+                          <p className="mt-0.5 truncate text-[11px] text-[#71717A] dark:text-[#A1A1AA]">
+                            {task.notes}
+                          </p>
+                        )}
                       </div>
                     </div>
                   ))

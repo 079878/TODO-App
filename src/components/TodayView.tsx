@@ -5,7 +5,6 @@ import {
   Minus,
   Play,
   Plus,
-  Search,
   Trash2,
   X,
 } from 'lucide-react';
@@ -36,6 +35,7 @@ interface TodayViewProps {
   onUnscheduleTask: (taskId: string) => void;
   onOpenNewBlockAtTime: (startTime: string) => void;
   onStartFocusForTask: (task: PlannerTask) => void;
+  isGlobalSearchActive?: boolean;
 }
 
 const CATEGORIES: ('All' | TaskCategory)[] = [
@@ -77,6 +77,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
   onUnscheduleTask,
   onOpenNewBlockAtTime,
   onStartFocusForTask,
+  isGlobalSearchActive = false,
 }) => {
   const [quickTitle, setQuickTitle] = useState('');
   const [quickCategory, setQuickCategory] = useState<TaskCategory>('Deep Work');
@@ -86,7 +87,6 @@ export const TodayView: React.FC<TodayViewProps> = ({
   const [isQuickExpanded, setIsQuickExpanded] = useState(false);
 
   const [categoryFilter, setCategoryFilter] = useState<'All' | TaskCategory>('All');
-  const [searchQuery, setSearchQuery] = useState('');
   const [hideCompleted, setHideCompleted] = useState(false);
 
   const [now, setNow] = useState(() => new Date());
@@ -110,13 +110,6 @@ export const TodayView: React.FC<TodayViewProps> = ({
         if (hideCompleted && t.completed) {
           return false;
         }
-        if (searchQuery.trim()) {
-          const q = searchQuery.trim().toLowerCase();
-          return (
-            t.title.toLowerCase().includes(q) ||
-            t.category.toLowerCase().includes(q)
-          );
-        }
         return true;
       })
       .sort((a, b) => {
@@ -129,7 +122,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
         if (b.startTime) return 1;
         return 0;
       });
-  }, [dayTasks, categoryFilter, hideCompleted, searchQuery]);
+  }, [dayTasks, categoryFilter, hideCompleted]);
 
   const scheduledBlocks = useMemo(() => {
     return dayTasks
@@ -290,30 +283,8 @@ export const TodayView: React.FC<TodayViewProps> = ({
             )}
           </form>
 
-          {/* Search & Category Filter */}
-          <div className="mt-4 space-y-3">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#A1A1AA] dark:text-[#71717A]" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Filter tasks..."
-                aria-label="Filter tasks"
-                className="h-9 w-full rounded-lg border border-[#E4E4E7] bg-[#FAFAFA] pl-8 pr-8 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#4648d4] focus:bg-[#FFFFFF] focus:outline-none dark:border-[#27272A] dark:bg-[#09090B] dark:text-[#FAFAFA] dark:placeholder:text-[#52525B] dark:focus:border-[#6366F1] dark:focus:bg-[#111114]"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  aria-label="Clear filter"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#71717A] hover:text-[#09090B] dark:text-[#A1A1AA] dark:hover:text-[#FAFAFA]"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-
+          {/* Category Filter */}
+          <div className="mt-4">
             <div
               className="flex items-center gap-1 overflow-x-auto pb-1"
               role="tablist"
@@ -346,14 +317,14 @@ export const TodayView: React.FC<TodayViewProps> = ({
             {filteredInboxTasks.length === 0 ? (
               <div className="py-12 text-center">
                 <p className="text-sm font-medium text-[#27272A] dark:text-[#E4E4E7]">
-                  {dayTasks.length === 0
+                  {dayTasks.length === 0 && !isGlobalSearchActive
                     ? 'A quiet slate for this day'
                     : 'No matching tasks'}
                 </p>
                 <p className="mt-1 text-xs text-[#71717A] dark:text-[#A1A1AA]">
-                  {dayTasks.length === 0
+                  {dayTasks.length === 0 && !isGlobalSearchActive
                     ? 'Use the baseline above to capture your top priorities.'
-                    : 'Adjust your category filter or search query.'}
+                    : 'Adjust your category filter or TopBar search query.'}
                 </p>
               </div>
             ) : (
@@ -413,6 +384,11 @@ export const TodayView: React.FC<TodayViewProps> = ({
                         </>
                       )}
                     </div>
+                    {task.notes && (
+                      <p className="mt-1 truncate text-xs text-[#71717A] dark:text-[#A1A1AA]">
+                        {task.notes}
+                      </p>
+                    )}
                   </div>
 
                   {/* Row Actions */}

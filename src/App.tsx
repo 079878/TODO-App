@@ -70,6 +70,7 @@ export default function App() {
   const [activeView, setActiveView] = useState<PlannerView>('today');
   const [selectedDate, setSelectedDate] = useState<string>(() => getTodayKey());
   const [focusTaskId, setFocusTaskId] = useState<string | null>(null);
+  const [taskSearchQuery, setTaskSearchQuery] = useState('');
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<PlannerTask | null>(null);
@@ -114,6 +115,18 @@ export default function App() {
   useEffect(() => {
     void trackPlannerEvent('screen_view', { screen_name: activeView });
   }, [activeView]);
+
+  const normalizedTaskSearch = taskSearchQuery.trim().toLowerCase();
+  const isGlobalSearchActive = normalizedTaskSearch.length > 0;
+
+  const taskMatchesQuery = (t: PlannerTask, query: string) =>
+    t.title.toLowerCase().includes(query) ||
+    (t.notes ? t.notes.toLowerCase().includes(query) : false);
+
+  const filteredTasks = useMemo(() => {
+    if (!normalizedTaskSearch) return state.tasks;
+    return state.tasks.filter((t) => taskMatchesQuery(t, normalizedTaskSearch));
+  }, [state.tasks, normalizedTaskSearch]);
 
   const dayTasks = useMemo(
     () => state.tasks.filter((t) => t.date === selectedDate),
@@ -349,11 +362,13 @@ export default function App() {
   const handleRolloverTasks = (fromDate: string, toDate: string) => {
     setState((prev) => ({
       ...prev,
-      tasks: prev.tasks.map((t) =>
-        t.date === fromDate && !t.completed
+      tasks: prev.tasks.map((t) => {
+        const matchesFilter =
+          !normalizedTaskSearch || taskMatchesQuery(t, normalizedTaskSearch);
+        return t.date === fromDate && !t.completed && matchesFilter
           ? { ...t, date: toDate, startTime: undefined }
-          : t
-      ),
+          : t;
+      }),
     }));
   };
 
@@ -399,13 +414,16 @@ export default function App() {
           onOpenNewBlock={() => handleOpenNewBlock()}
           theme={theme}
           onToggleTheme={handleToggleTheme}
+          searchQuery={taskSearchQuery}
+          onSearchChange={setTaskSearchQuery}
+          matchingTaskCount={filteredTasks.length}
         />
 
         <main className="flex-1 overflow-y-auto">
           {activeView === 'today' && (
             <TodayView
               selectedDate={selectedDate}
-              tasks={state.tasks}
+              tasks={filteredTasks}
               onToggleTask={handleToggleTask}
               onQuickAddTask={handleQuickAddTask}
               onEditTask={handleEditTask}
@@ -414,6 +432,7 @@ export default function App() {
               onUnscheduleTask={handleUnscheduleTask}
               onOpenNewBlockAtTime={(time) => handleOpenNewBlock(time)}
               onStartFocusForTask={handleStartFocusForTask}
+              isGlobalSearchActive={isGlobalSearchActive}
             />
           )}
 
@@ -425,16 +444,20 @@ export default function App() {
                 setSelectedDate(dKey);
                 setActiveView('today');
               }}
-              tasks={state.tasks}
+              tasks={filteredTasks}
               onToggleTask={handleToggleTask}
+              isGlobalSearchActive={isGlobalSearchActive}
             />
           )}
 
           {activeView === 'focus' && (
             <FocusView
               selectedDate={selectedDate}
-              tasks={state.tasks}
+              tasks={filteredTasks}
               activeTaskId={focusTaskId}
+              pinnedActiveTask={
+                state.tasks.find((t) => t.id === focusTaskId) || null
+              }
               onSelectTaskId={setFocusTaskId}
               focusSessions={state.focusSessions}
               onLogFocusSession={handleLogFocusSession}
@@ -454,7 +477,7 @@ export default function App() {
           {activeView === 'review' && (
             <ReviewView
               selectedDate={selectedDate}
-              tasks={state.tasks}
+              tasks={filteredTasks}
               habits={state.habits}
               focusSessions={state.focusSessions}
               reflection={state.reflections[selectedDate]}
@@ -473,7 +496,7 @@ export default function App() {
           {activeView === 'assistant' && (
             <ChatView
               selectedDate={selectedDate}
-              tasks={state.tasks}
+              tasks={filteredTasks}
               habits={state.habits}
               messages={chatMessages}
               onUpdateMessages={setChatMessages}

@@ -3,6 +3,7 @@
   "appId": "1:370599713327:web:98aa9b22ae86d31a6504da",
   "apiKey": "AIzaSyCysiQ0fgaJtKsGqVPHDpG3FyEaZXEuKQg",
   "authDomain": "graphic-works-qbwbv.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-dayflow-507c2008-5629-4690-b44c-bb2bafc0ac12",
   "storageBucket": "graphic-works-qbwbv.firebasestorage.app",
   "messagingSenderId": "370599713327",
   "measurementId": "",
