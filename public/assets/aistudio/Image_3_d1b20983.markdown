@@ -1,0 +1,201 @@
+---
+name: Dayflow Minimalist Daily Planner
+colors:
+  surface: '#fbf8ff'
+  surface-dim: '#dad9e3'
+  surface-bright: '#fbf8ff'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#f4f2fd'
+  surface-container: '#eeedf7'
+  surface-container-high: '#e8e7f1'
+  surface-container-highest: '#e3e1ec'
+  on-surface: '#1a1b22'
+  on-surface-variant: '#464554'
+  inverse-surface: '#2f3038'
+  inverse-on-surface: '#f1effa'
+  outline: '#767586'
+  outline-variant: '#c7c4d7'
+  surface-tint: '#494bd6'
+  primary: '#4648d4'
+  on-primary: '#ffffff'
+  primary-container: '#6063ee'
+  on-primary-container: '#fffbff'
+  inverse-primary: '#c0c1ff'
+  secondary: '#5f5e61'
+  on-secondary: '#ffffff'
+  secondary-container: '#e4e1e5'
+  on-secondary-container: '#656467'
+  tertiary: '#006c49'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#00885d'
+  on-tertiary-container: '#000703'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#e1e0ff'
+  primary-fixed-dim: '#c0c1ff'
+  on-primary-fixed: '#07006c'
+  on-primary-fixed-variant: '#2f2ebe'
+  secondary-fixed: '#e4e1e5'
+  secondary-fixed-dim: '#c8c6c9'
+  on-secondary-fixed: '#1b1b1e'
+  on-secondary-fixed-variant: '#47464a'
+  tertiary-fixed: '#6ffbbe'
+  tertiary-fixed-dim: '#4edea3'
+  on-tertiary-fixed: '#002113'
+  on-tertiary-fixed-variant: '#005236'
+  background: '#fbf8ff'
+  on-background: '#1a1b22'
+  surface-variant: '#e3e1ec'
+typography:
+  display:
+    fontFamily: Geist
+    fontSize: 3rem
+    fontWeight: '600'
+    lineHeight: 3.5rem
+    letterSpacing: -0.03em
+  display-mobile:
+    fontFamily: Geist
+    fontSize: 2.25rem
+    fontWeight: '600'
+    lineHeight: 2.75rem
+    letterSpacing: -0.025em
+  headline-lg:
+    fontFamily: Geist
+    fontSize: 2rem
+    fontWeight: '600'
+    lineHeight: 2.5rem
+    letterSpacing: -0.02em
+  headline-lg-mobile:
+    fontFamily: Geist
+    fontSize: 1.5rem
+    fontWeight: '600'
+    lineHeight: 2rem
+    letterSpacing: -0.015em
+  headline-sm:
+    fontFamily: Geist
+    fontSize: 1.125rem
+    fontWeight: '500'
+    lineHeight: 1.5rem
+    letterSpacing: -0.01em
+  body-lg:
+    fontFamily: Geist
+    fontSize: 1rem
+    fontWeight: '400'
+    lineHeight: 1.5rem
+    letterSpacing: -0.005em
+  body-md:
+    fontFamily: Geist
+    fontSize: 0.875rem
+    fontWeight: '400'
+    lineHeight: 1.375rem
+    letterSpacing: 0em
+  body-sm:
+    fontFamily: Geist
+    fontSize: 0.75rem
+    fontWeight: '400'
+    lineHeight: 1.125rem
+    letterSpacing: 0.01em
+  label-lg:
+    fontFamily: Geist
+    fontSize: 0.875rem
+    fontWeight: '500'
+    lineHeight: 1.25rem
+    letterSpacing: 0.005em
+  label-md:
+    fontFamily: Geist
+    fontSize: 0.75rem
+    fontWeight: '500'
+    lineHeight: 1rem
+    letterSpacing: 0.02em
+  label-xs:
+    fontFamily: Geist
+    fontSize: 0.6875rem
+    fontWeight: '600'
+    lineHeight: 0.875rem
+    letterSpacing: 0.04em
+rounded:
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
+  full: 9999px
+spacing:
+  gutter: 1rem
+  gutter-tablet: 1.5rem
+  gutter-desktop: 2rem
+  margin: 1rem
+  margin-tablet: 2rem
+  margin-desktop: 3rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 1rem
+  space-lg: 1.5rem
+  space-xl: 2.5rem
+---
+
+## Brand & Style
+The design system embodies intentional calm, razor-sharp clarity, and frictionless productivity. Tailored for focused professionals, creatives, and intentional thinkers, it strips away cognitive clutter to prioritize chronological orientation and deep work.
+
+The aesthetic fuses Japanese minimal reductionism with modern neo-grotesque precision:
+- **Purity over Ornamentation:** Generous negative space acts as a functional pacing mechanism between tasks rather than passive void.
+- **Micro-Interactions & Celebration:** Interacting with completed routines yields brief, vivid bursts of energy against an otherwise serene canvas.
+- **Architectural Rhythm:** Razor-thin structural borders and disciplined horizontal rules anchor daily schedules without visual heaviness.
+
+## Colors
+The palette balances an ultra-clean, warm-monochrome foundation with targeted kinetic accents:
+- **Base Surfaces:** Canvas layers are structured using crystalline white (`#FFFFFF`) for elevated cards, layered over warm off-white canvases (`#FAFAFA` and `#F4F4F5`).
+- **Typography & Structural Contrast:** Primary text anchors heavily at `#09090B` for effortless legibility in daylight. Secondary metadata, timestamps, and muted labels sit at `#27272A` and `#71717A`.
+- **Accent Ignition:** Electric Indigo (`#6366F1`) serves exclusively as the action trigger—used for current-time indicators, primary FABs, active toggle pills, and selected timeline intervals.
+- **Completion State:** Tertiary Emerald (`#10B981`) is reserved strictly for completed items and habit streaks, reinforcing a quiet psychological reward.
+- **Borders & Dividers:** Micro-borders rely on high-precision neutrals (`#E4E4E7` to `#F4F4F5`) to establish structure without optical noise.
+
+## Typography
+Built entirely upon `Geist`, this system leverages engineered monospace-like balance with proportional geometric rhythm.
+
+- **Numerics & Timeline:** Timestamps and duration tags benefit from tabular lining figures, preventing layout jank when schedules refresh or counters tick.
+- **Headings:** Headlines demand negative tracking (`-0.015em` to `-0.03em`) to mimic editorial Swiss print standards.
+- **Hierarchy Rules:** Body text never drops below 12px (`0.75rem`), preserving immediate scanability when glancing at daily agendas while in transit.
+
+## Layout & Spacing
+A fluid 4-column layout governs mobile environments, evolving to 8 columns on tablets and 12 columns for widescreen planning boards:
+- **Vertical Rhythm:** A strict 4px / 8px atomic grid drives scheduling blocks. One hour equates to a standardized 64px vertical interval, while half-hour increments align precisely to 32px.
+- **Margins & Gutter Logic:** Mobile viewports use 16px (`1rem`) outer margins to maximize interactive surface space, expanding to 32px on larger screens to avoid overstretched reading spans.
+- **Breathing Space:** Elements never crowd task titles; list items maintain minimum internal padding of `space-md` (`1rem`) vertically to ensure effortless touch targeting (minimum 44x44pt).
+
+## Elevation & Depth
+The system renounces heavy artificial drop shadows in favor of **low-contrast micro-outlines, structural boundaries, and subtle surface layering**:
+- **Baseline Canvas (Level 0):** Neutral `#FAFAFA` canvas with zero shadow.
+- **Structural Elevation (Level 1 - Task Cards & Modules):** Pure white `#FFFFFF` surface bordered by a crisp `1px` stroke of `#E4E4E7`. Ambient drop shadow is kept whisper-quiet: `0 1px 2px 0 rgba(9, 9, 11, 0.03)`.
+- **Floating Modals & Sheets (Level 2):** Floating creation sheets use an ambient veil: `0 10px 25px -5px rgba(9, 9, 11, 0.06), 0 8px 10px -6px rgba(9, 9, 11, 0.04)` with a micro-border of `#E4E4E7`.
+- **Timehead Scrim:** The active timeline tracker features a razor-sharp 1.5px solid line in `#6366F1` with an ultra-subtle diffuse pulse glow (`rgba(99, 102, 241, 0.15)`).
+
+## Shapes
+A balanced roundedness architecture harmonizes structural cards with tactile pills:
+- **Outer Shells & Containers:** Base task cards, modal sheets, and time-block regions use `rounded-lg` (16px / `1rem`), projecting a welcoming yet structured feel.
+- **Interactive Tags & Micro-Badges:** Filter chips, category indicators, time badges, and status pills strictly employ continuous full-radius pill styling (`rounded-full` / 9999px).
+- **Checkpoints:** Habit checkboxes and item controls use `rounded` (8px / `0.5rem`) for a softer, organic interactive feel.
+
+## Components
+
+### Buttons
+- **Primary Action Button:** Solid `#6366F1` background, `#FFFFFF` text, `rounded-full`, 48px height for thumb-friendly reach. Active state drops opacity to `0.9` with a subtle scale transform (`0.98`).
+- **Secondary / Ghost Button:** `#FFFFFF` background with `1px solid #E4E4E7`, `#09090B` text. Transitions to `#F4F4F5` on tap.
+
+### Chips & Pill Badges
+- **Category & Duration Pills:** Rendered with full-pill contours (`rounded-full`), `space-xs` vertical by `space-sm` horizontal padding. Neutral state: `#F4F4F5` background with `#27272A` text. Selected state: `#6366F1` background with `#FFFFFF` text.
+
+### Task Lists & Schedule Items
+- **List Rows:** Set against `#FFFFFF` background with a subtle bottom divider (`1px solid #F4F4F5`). Tapping triggers an instant slate-50 active press state.
+- **Strikethrough Dynamic:** Checking an item transitions text color to `#A1A1AA` with an animated strike line, accompanied by a discreet vibration pattern and emerald border accent.
+
+### Checkboxes & Selection Controls
+- **Circular Check Targets:** 22px diameter circles. Unchecked: `1.5px solid #D4D4D8` border with a transparent fill. Checked: `#10B981` solid fill containing an inset white SVG checkmark.
+
+### Input Fields & Quick-Add
+- **Inline Task Creator:** Clean borderless baseline with a persistent `1px solid #E4E4E7` underline that expands into a 2px `#6366F1` border on focus. Typography sits at `body-lg` (`1rem`) to avoid auto-zoom on mobile web runtimes.
+
+### Schedule Cards & Time Blocks
+- **Focus Blocks:** Inset cards utilizing 16px internal padding, `rounded-lg`, framed by a `1px solid #E4E4E7` boundary. Left border features an optional 3px solid category color accent bar.

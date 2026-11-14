@@ -1,0 +1,8 @@
+{
+  "name": "Dayflow",
+  "description": "Days Flow is a smart, simple, and modern To-Do List app designed to help you organize your daily life and achieve your goals.\n\nCreate tasks, set deadlines, manage your schedule, and track your progress — all in one place.\n\nWhether you're managing schoolwork, personal goals, or everyday responsibilities, Days Flow helps you stay focused, organized, and productive.\n\nKey Features:\n\nCreate and manage daily tasks.\n\nSet deadlines and reminders.\n\nTrack completed tasks.\n\nOrganize your daily schedule.\n\nStay focused and boost productivity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
