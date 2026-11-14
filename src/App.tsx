@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { BlockModal } from './components/BlockModal';
 import { ChatView } from './components/ChatView';
 import { FocusView } from './components/FocusView';
+import { GmailView } from './components/GmailView';
 import { HabitsView } from './components/HabitsView';
 import { ReviewView } from './components/ReviewView';
 import { Sidebar } from './components/Sidebar';
@@ -9,6 +10,10 @@ import { TodayView } from './components/TodayView';
 import { TopBar } from './components/TopBar';
 import { WeekView } from './components/WeekView';
 import { loadPlannerState, savePlannerState } from './data/seedData';
+import {
+  initFirebaseAnalytics,
+  trackPlannerEvent,
+} from './services/firebaseAnalytics';
 import {
   ChatMessage,
   DailyReflection,
@@ -101,6 +106,14 @@ export default function App() {
       // Ignore storage quota errors
     }
   }, [chatMessages]);
+
+  useEffect(() => {
+    void initFirebaseAnalytics();
+  }, []);
+
+  useEffect(() => {
+    void trackPlannerEvent('screen_view', { screen_name: activeView });
+  }, [activeView]);
 
   const dayTasks = useMemo(
     () => state.tasks.filter((t) => t.date === selectedDate),
@@ -344,6 +357,27 @@ export default function App() {
     }));
   };
 
+  const handleAddTaskFromEmail = (payload: {
+    title: string;
+    notes: string;
+  }) => {
+    const newTask: PlannerTask = {
+      id: generateId('t'),
+      title: payload.title,
+      category: 'Admin',
+      durationMinutes: 30,
+      date: selectedDate,
+      completed: false,
+      priority: false,
+      notes: payload.notes,
+    };
+    setState((prev) => ({
+      ...prev,
+      tasks: [newTask, ...prev.tasks],
+    }));
+    void trackPlannerEvent('add_task_from_email');
+  };
+
   return (
     <div className="flex min-h-screen bg-[#FAFAFA] text-[#09090B] dark:bg-[#09090B] dark:text-[#FAFAFA]">
       <Sidebar
@@ -426,6 +460,13 @@ export default function App() {
               reflection={state.reflections[selectedDate]}
               onSaveReflection={handleSaveReflection}
               onRolloverTasks={handleRolloverTasks}
+            />
+          )}
+
+          {activeView === 'gmail' && (
+            <GmailView
+              selectedDate={selectedDate}
+              onAddTaskFromEmail={handleAddTaskFromEmail}
             />
           )}
 

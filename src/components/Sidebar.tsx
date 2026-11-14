@@ -3,6 +3,7 @@ import {
   CalendarDays,
   CheckSquare,
   Clock,
+  Mail,
   MessageSquare,
   Moon,
   Plus,
@@ -32,6 +33,7 @@ const NAV_ITEMS: {
   { id: 'focus', label: 'Focus', icon: Clock },
   { id: 'habits', label: 'Habits', icon: CheckSquare },
   { id: 'review', label: 'Review', icon: Moon },
+  { id: 'gmail', label: 'Gmail', icon: Mail },
   { id: 'assistant', label: 'Assistant', icon: MessageSquare },
 ];
 
@@ -229,7 +231,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile Bottom Navigation (<= 60px height, <15% viewport height) */}
       <nav
         aria-label="Mobile Navigation"
-        className="fixed inset-x-0 bottom-0 z-30 flex h-14 items-center justify-around border-t border-[#E4E4E7] bg-[#FFFFFF]/95 px-1 backdrop-blur-sm dark:border-[#27272A] dark:bg-[#111114]/95 lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 flex h-14 items-center justify-between overflow-x-auto border-t border-[#E4E4E7] bg-[#FFFFFF]/95 px-1 backdrop-blur-sm dark:border-[#27272A] dark:bg-[#111114]/95 sm:justify-around lg:hidden"
       >
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
@@ -239,7 +241,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               key={item.id}
               type="button"
               onClick={() => onSelectView(item.id)}
-              className={`flex h-11 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg px-1 text-[10px] font-medium transition-colors whitespace-nowrap ${
+              className={`flex h-11 min-w-[52px] flex-1 flex-col items-center justify-center gap-0.5 rounded-lg px-0.5 text-[10px] font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'text-[#4648d4] dark:text-[#A5B4FC]'
                   : 'text-[#71717A] dark:text-[#A1A1AA]'

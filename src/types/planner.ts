@@ -6,7 +6,8 @@ export type PlannerView =
   | 'focus'
   | 'habits'
   | 'review'
-  | 'assistant';
+  | 'assistant'
+  | 'gmail';
 
 export type ChatModelMode = 'general' | 'fast';
 
